@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Pizza</title>
+    <style>
+        /* Basic styles for demonstration purposes, customize as needed */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 20px;
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .cart-icon {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Order Pizza</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'cart' %}"><span class="cart-icon">🛒</span></a>{{request.user.get_cart_count}}</li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'orders' %}" class="btn btn-primary">Dassbord</a></li>
+            <li><a href="{% url 'logout_view' %}" class="btn btn-primary">Logout</a></li>
+            
+            {% else %}
+            <li><a href="{% url 'login_page' %}">Login</a></li>
+            <li><a href="{% url 'register_page' %}">Signup</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Your content here -->
+
+    {% block start %}
+    {% endblock %}
+</body>
+</html>

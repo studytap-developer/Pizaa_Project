@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% extends "app/base.html" %}
+    {% block start %}
+    <title>Order Pizza</title>
+    <style>
+        /* Grid styles */
+        .grid-container {
+            display: flex; /* Set the container to flex */
+            gap: 20px;
+            padding: 20px;
+            overflow-x: auto; /* Allow horizontal scrolling if needed */
+            justify-content: flex-start; /* Align items from the start */
+        }
+        .pizza-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            flex: 0 0 auto; /* Let items shrink or grow as needed */
+            width: 300px; /* Fixed width for each pizza item */
+        }
+        .pizza-image {
+            max-width: 100%; /* Adjust image width */
+            height: 200px; /* Set a fixed height */
+            object-fit: cover; /* Maintain aspect ratio */
+        }
+        .pizza-details {
+            margin-top: 10px;
+        }
+        .add-to-cart {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- Pizza grid -->
+<div class="grid-container">
+    <!-- Loop through pizza items -->
+    {% for pizza in pizza_list %}
+    <div class="pizza-item">
+        <img class="pizza-image" src="/media/{{ pizza.image }}" alt="{{ pizza.pizza_name }}">
+        <div class="pizza-details">
+            <h3>{{ pizza.pizza_name }}</h3>
+            <!-- <p>Description: {{ pizza.description }}</p> -->
+            <p>Price: {{ pizza.price }} | Category: {{ pizza.category.category_name }}</p>
+            <a href="{% url 'add_cart' pizza.uid %}"><button class="add-to-cart">Add to Cart</button></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+{% endblock %}
+</html>

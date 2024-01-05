@@ -1,0 +1,36 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "app/base.html" %}
+    {% block start %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty Cart</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .logo {
+            margin-top: 50px;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="{% static 'image/l.webp' %}" alt="Company Logo">
+    </div>
+    <div class="message">
+        No Cart Items
+    </div>
+    {% endblock %}
+</body>
+</html>

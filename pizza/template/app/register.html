@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+
+<head>
+
+    {% extends "app/base.html" %}
+    {% block start %}
+    {% load socialaccount %}
+    <html lang="en">
+{% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <style>
+        /* Reset some default styles */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Center the registration form vertically and horizontally */
+        .registration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style for the form */
+        .registration-form {
+            background-color: #f9f9f9;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .registration-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        p a {
+            color: #333;
+            text-decoration: underline;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="registration-container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <form class="registration-form" method="post">
+            {% csrf_token %}
+            <h2>Sign Up</h2>
+            <div class="input-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+
+            <p>Already have an account? <a href="{% url 'login_page' %}">Login</a></p>
+            <!-- Google Login Button -->
+            <div class="social-login">
+                <a href="{% provider_login_url 'google' %}" class="btn btn-google">Sign In Via Google</a>
+
+            </div>
+
+        </form>
+
+    </div>
+</body>
+{% endblock %}
+
+</html>
