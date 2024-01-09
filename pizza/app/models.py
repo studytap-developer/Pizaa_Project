@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 from django.db.models import Sum
+from django.utils import timezone
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -43,8 +44,15 @@ class Cart(BaseModel):
     coupon=models.ForeignKey(Coupon,on_delete=models.SET_NULL,null=True,blank=True)
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default=ORDER_PLACED)
     instamojo_id = models.CharField(max_length=100)  
+    order_date = models.DateTimeField(default=timezone.now)  # New field for order date
+    delivered_date = models.DateTimeField(null=True, blank=True)  # New field for delivered date
     def get_cart_total(self):
         return CartItems.objects.filter(cart =self).aggregate(total_price=Sum("pizaa__price")).get('total_price') or 0
+    class Meta:
+        ordering = ['-order_date']
+    def __str__(self):
+        return f"Cart {self.uid} - User: {self.user.username if self.user else 'None'}"
+ 
 class CartItems(BaseModel):
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE,related_name="cart_items")
     pizaa=models.ForeignKey(Pizza,on_delete=models.CASCADE)

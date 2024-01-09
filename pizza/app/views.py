@@ -12,6 +12,13 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer, Ima
 from allauth.socialaccount.providers.oauth2.views import OAuth2LoginView
 
 
+# for email
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
 print("After class definition")
 api = Instamojo(api_key=settings.API_KEY,
                 auth_token=settings.AUTH_TOKEN,endpoint="https://test.instamojo.com/api/1.1/")
@@ -135,7 +142,32 @@ def success(request):
 
 
 
+# for Email
+# def send_order_confirmation_email(order):
+#     subject = 'Order Confirmation'
+#     html_message = render_to_string('order_confirmation_email.html', {'order': order})
+#     plain_message = strip_tags(html_message)
+#     from_email = 'your-email@example.com'
+#     to_email = order.user.email
 
+#     send_mail(subject, plain_message, from_email, [to_email], html_message=html_message)
+
+# def send_order_summary_email(order):
+#     subject = 'Order Summary'
+#     html_message = render_to_string('order_summary_email.html', {'order': order})
+#     plain_message = strip_tags(html_message)
+#     from_email = 'your-email@example.com'
+#     to_email = order.user.email
+
+#     send_mail(subject, plain_message, from_email, [to_email], html_message=html_message)
+
+# # Connect signals
+# @receiver(post_save, sender=Cart)
+# def order_saved(sender, instance, **kwargs):
+#     if instance.status == Cart.ORDER_PLACED:
+#         send_order_confirmation_email(instance)
+#     elif instance.status == Cart.DELIVERED:
+#         send_order_summary_email(instance)
 
 
 from reportlab.lib import colors

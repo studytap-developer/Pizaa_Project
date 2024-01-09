@@ -190,7 +190,20 @@ COMPANY_GST_NO="1234567876543"
 COMPANY_LOGO_PATH= 'app/l.webp'
 
 
+# Email setting 
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'your-smtp-server.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@example.com'
+EMAIL_HOST_PASSWORD = 'your-email-password'
+
+
 
 
 # AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend', )
 
+TIME_ZONE = 'Asia/Kolkata'
+USE_TZ = True
